@@ -5,6 +5,7 @@ from keras.preprocessing import image
 import cv2
 import numpy as np
 import time
+import youtube_stream
 
 face_classifier = cv2.CascadeClassifier('src/haarcascade_frontalface_default.xml')
 classifier =load_model('src/model.h5')
@@ -46,10 +47,16 @@ while True:
     cv2.imshow('Emotion Detector',frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         label = max(label_dict, key=label_dict.get)
+        print(label)
         break
     if time.time() > end:
         label = max(label_dict, key=label_dict.get)
+        print(label)
         break
+
+label += " songs"
+
+youtube_stream.play_video(label)
 
 cap.release()
 cv2.destroyAllWindows()
